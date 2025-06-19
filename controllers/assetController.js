@@ -1,7 +1,7 @@
 const Asset = require("../models/Asset");
 const Purchase = require("../models/Purchase");
+const User = require('../models/User');
 
-// GET: All assets (optionally filter by base or type)
 const getAssets = async (req, res) => {
   try {
     const { base, type } = req.query;
@@ -17,7 +17,6 @@ const getAssets = async (req, res) => {
   }
 };
 
-// GET: One asset by ID
 const getAssetById = async (req, res) => {
   try {
     const asset = await Asset.findById(req.params.id);
@@ -29,12 +28,13 @@ const getAssetById = async (req, res) => {
   }
 };
 
+
 const getAvailableFilters = async (req, res) => {
   try {
     const bases = await User.distinct("base");
-    const types = await AssetType.find().select('name -_id');
+    const types = await Asset.distinct("type"); 
 
-    res.status(200).json({ bases, types: types.map(t => t.name) });
+    res.status(200).json({ bases, types });
   } catch (err) {
     console.error("Error fetching filters:", err);
     res.status(500).json({ message: "Failed to fetch filters" });

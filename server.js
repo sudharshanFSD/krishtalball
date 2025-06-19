@@ -19,7 +19,8 @@ const app = express();
 app.use(cors({
   origin: 'https://krishtalball.onrender.com',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 app.use(express.json());

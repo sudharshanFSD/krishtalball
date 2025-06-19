@@ -29,13 +29,12 @@ const getAssetById = async (req, res) => {
   }
 };
 
-
 const getAvailableFilters = async (req, res) => {
   try {
-    const bases = await Purchase.distinct("base");
-    const types = await Purchase.distinct("type");
+    const bases = await User.distinct("base");
+    const types = await AssetType.find().select('name -_id');
 
-    res.status(200).json({ bases, types });
+    res.status(200).json({ bases, types: types.map(t => t.name) });
   } catch (err) {
     console.error("Error fetching filters:", err);
     res.status(500).json({ message: "Failed to fetch filters" });

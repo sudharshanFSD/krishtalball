@@ -16,12 +16,24 @@ const purchaseRoutes = require("./routes/purchaseRoutes");
 dotenv.config();
 
 const app = express();
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://militarymanagement.netlify.app',
+];
+
 app.use(cors({
-  origin: 'https://militarymanagement.netlify.app/',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    callback(new Error('Not allowed by CORS'));
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
+   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 
 app.use(express.json());
 app.use(cookieParser());

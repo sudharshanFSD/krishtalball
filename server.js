@@ -17,7 +17,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: 'https://krishtalball.onrender.com',
+  origin: 'https://militarymanagement.netlify.app/',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
